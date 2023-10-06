@@ -3,34 +3,88 @@ package com.example.customviewcompose.samples
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+@Preview
 @Composable
 fun CanvasTest() {
     Canvas(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(
+                brush = Brush.linearGradient(
+                    colors = listOf(
+                        Color.Cyan,
+                        Color.Magenta
+                    ),
+                    start = Offset(100.dp.toPx(), 0F),
+                    end = Offset(200.dp.toPx(), 200.dp.toPx()),
+                    tileMode = TileMode.Mirror
+                )
+            )
     ) {
-        drawLine(
+        drawPath(
+            path = Path().apply {
+                moveTo(
+                    x = center.x,
+                    y = 100.dp.toPx()
+                )
+                lineTo(
+                    x = center.x + 25.dp.toPx(),
+                    y = 150.dp.toPx()
+                )
+                lineTo(
+                    x = center.x + 75.dp.toPx(),
+                    y = 150.dp.toPx()
+                )
+                lineTo(
+                    x = center.x + 45.dp.toPx(),
+                    y = 195.dp.toPx()
+                )
+                lineTo(
+                    x = center.x + 60.dp.toPx(),
+                    y = 250.dp.toPx()
+                )
+                lineTo(
+                    x = center.x,
+                    y = 220.dp.toPx()
+                )
+                lineTo(
+                    x = center.x - 60.dp.toPx(),
+                    y = 250.dp.toPx()
+                )
+                lineTo(
+                    x = center.x - 45.dp.toPx(),
+                    y = 195.dp.toPx()
+                )
+                lineTo(
+                    x = center.x - 75.dp.toPx(),
+                    y = 150.dp.toPx()
+                )
+                lineTo(
+                    x = center.x - 25.dp.toPx(),
+                    y = 150.dp.toPx()
+                )
+                lineTo(
+                    x = center.x,
+                    y = 100.dp.toPx()
+                )
+            },
             color = Color.White,
-            start = Offset(0F, 0F),
-            end = Offset(size.width, size.height)
-        )
-        drawLine(
-            color = Color.White,
-            start = Offset(size.width, 0F),
-            end = Offset(0F, size.height)
-        )
-        drawCircle(
-            color = Color.White,
-            radius = 100.dp.toPx(),
-            style = Stroke(width = 1.dp.toPx())
+            style = Fill
         )
     }
 }
@@ -156,4 +210,9 @@ fun Oleg() {
         )
 
     }
+}
+
+@Composable
+fun Dp.toPx() = with(LocalDensity.current) {
+    this@toPx.toPx()
 }
